@@ -1,0 +1,130 @@
+@extends('app')
+
+@section('content')
+  <div
+    class="
+      w-[500px]
+      h-auto
+      pt-6
+      mx-auto
+      grid
+      grid-cols-1
+      gap-6
+    "
+  >
+    <form
+      class="
+        w-full
+        h-full
+        grid
+        grid-cols-1
+        gap-4
+        rounded-2xl
+        border-white
+        border-2
+        p-4
+        bg-[#1a1d24]
+      "
+      action="{{ route('todos-update', ['id' => $todo->id]) }}"
+      method="POST"
+    >
+      @method('PATCH')
+      @csrf
+
+      @if (session('success'))
+        <span
+          class="
+            rounded-full
+            w-full
+            h-auto
+            bg-green-600
+            flex
+            items-center
+            px-5
+            py-2
+          "
+        >
+          {{ session('success') }}
+        </span>
+      @endif
+
+      @error('title')
+        <span
+          class="
+            rounded-full
+            w-full
+            h-auto
+            bg-red-600
+            flex
+            items-center
+            px-5
+            py-2
+          "
+        >
+          {{ $message }}
+        </span>
+        
+      @enderror
+      <label
+        class="
+          grid
+          grid-cols-1
+          grid-rows-2
+        "
+      >
+        <span
+          class="
+            flex
+            items-center
+            pl-1
+          "
+        >
+          Titulo de la tarea:
+        </span>
+        <input
+          class="
+            placeholder:italic
+            placeholder:text-slate-400
+            block
+            bg-white
+            w-full
+            border
+            border-slate-300
+            rounded-full
+            py-2
+            pl-3
+            text-black
+            shadow-sm
+            focus:outline-none
+            focus:border-sky-500
+            focus:ring-sky-500
+            focus:ring-1
+            sm:text-sm
+          "
+          placeholder="Tarea"
+          type="text"
+          name="title"
+          value="{{ $todo->title }}"
+        />
+      </label>
+      <div
+        class="
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <button
+          class="
+            rounded-full
+            p-1
+            px-6
+            bg-cyan-500
+          "
+        >
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+@endsection
